@@ -5,6 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // 👇 IMPORTANT: GitHub Pages base path
+  base: mode === "production" ? "/tensorgo-vision-ui/" : "/",
+
   server: {
     host: "::",
     port: 8080,
@@ -14,5 +17,10 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+
+  // 👇 Build output docs/ folder me
+  build: {
+    outDir: "docs",
   },
 }));
