@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Send, Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Download, ExternalLink } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -13,21 +13,18 @@ const contactInfo = [
     label: 'Email',
     value: 'kushwahaabhishek7756@gmail.com',
     href: 'mailto:kushwahaabhishek7756@gmail.com',
-    color: 'primary',
   },
   {
     icon: Phone,
     label: 'Phone',
     value: '+91 6387050043',
     href: 'tel:+916387050043',
-    color: 'secondary',
   },
   {
     icon: MapPin,
     label: 'Location',
     value: 'India',
     href: '#',
-    color: 'accent',
   },
 ];
 
@@ -36,19 +33,16 @@ const socialLinks = [
     icon: Linkedin,
     label: 'LinkedIn',
     href: 'https://linkedin.com/in/abhisheklpu',
-    color: 'primary',
   },
   {
     icon: Github,
     label: 'GitHub',
     href: 'https://github.com/Forbiddenlucky',
-    color: 'secondary',
   },
   {
     icon: MessageCircle,
     label: 'WhatsApp',
     href: 'https://wa.me/916387050043',
-    color: 'accent',
   },
 ];
 
@@ -68,142 +62,112 @@ export const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
+      title: "Message Sent",
+      description: "Thank you for reaching out. I'll get back to you soon.",
     });
 
     setFormData({ name: '', email: '', subject: '', message: '' });
     setIsSubmitting(false);
   };
 
-  const getColorClasses = (color: string) => {
-    const map: Record<string, { bg: string; text: string; hover: string }> = {
-      primary: { bg: 'bg-primary/20', text: 'text-primary', hover: 'hover:bg-primary/30' },
-      secondary: { bg: 'bg-secondary/20', text: 'text-secondary', hover: 'hover:bg-secondary/30' },
-      accent: { bg: 'bg-accent/20', text: 'text-accent', hover: 'hover:bg-accent/30' },
-    };
-    return map[color] || map.primary;
-  };
-
   return (
-    <section id="contact" className="py-24 relative overflow-hidden" ref={ref}>
-      {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-gradient-radial from-primary/10 via-transparent to-transparent" />
-      
-      <div className="section-container relative z-10">
+    <section id="contact" className="py-20 bg-secondary/30" ref={ref}>
+      <div className="section-container">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="mb-12"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full glass-card text-sm text-primary mb-4">
-            Get In Touch
-          </span>
-          <h2 className="font-space font-bold text-3xl sm:text-4xl lg:text-5xl mb-4">
-            Let's <span className="text-gradient">Connect</span>
+          <p className="text-sm font-medium text-accent mb-2">Get In Touch</p>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-4">
+            Let's Connect
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or want to discuss opportunities? I'd love to hear from you!
+          <p className="text-muted-foreground max-w-2xl">
+            Have a project in mind or want to discuss opportunities? I'd love to hear from you.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-10">
           {/* Left - Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-8"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-6"
           >
             {/* Contact Details */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
-                const colors = getColorClasses(info.color);
 
                 return (
-                  <motion.a
+                  <a
                     key={info.label}
                     href={info.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                    whileHover={{ x: 5 }}
-                    className={`flex items-center gap-4 p-4 glass-card rounded-xl ${colors.hover} transition-all duration-300 group`}
+                    className="flex items-center gap-4 p-4 pro-card hover:bg-secondary/50 transition-colors"
                   >
-                    <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center`}>
-                      <Icon className={`w-5 h-5 ${colors.text}`} />
+                    <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">{info.label}</p>
-                      <p className="font-medium group-hover:text-primary transition-colors">{info.value}</p>
+                      <p className="font-medium">{info.value}</p>
                     </div>
-                  </motion.a>
+                  </a>
                 );
               })}
             </div>
 
             {/* Social Links */}
             <div>
-              <h3 className="font-space font-semibold text-lg mb-4">Connect on Social</h3>
-              <div className="flex gap-3">
-                {socialLinks.map((social, index) => {
+              <h3 className="font-medium mb-4">Connect on Social</h3>
+              <div className="flex gap-2">
+                {socialLinks.map((social) => {
                   const Icon = social.icon;
-                  const colors = getColorClasses(social.color);
 
                   return (
-                    <motion.a
+                    <a
                       key={social.label}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.1, y: -3 }}
-                      className={`w-12 h-12 rounded-xl ${colors.bg} ${colors.hover} flex items-center justify-center transition-all duration-300`}
+                      className="w-10 h-10 rounded-md border border-border bg-card hover:bg-secondary flex items-center justify-center transition-colors"
                       title={social.label}
                     >
-                      <Icon className={`w-5 h-5 ${colors.text}`} />
-                    </motion.a>
+                      <Icon className="w-5 h-5 text-muted-foreground" />
+                    </a>
                   );
                 })}
               </div>
             </div>
 
             {/* Resume Download */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="glass-card rounded-2xl p-6"
-            >
-              <h3 className="font-space font-semibold text-lg mb-2">Download Resume</h3>
+            <div className="pro-card p-5">
+              <h3 className="font-medium mb-2">Download Resume</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 Get a detailed overview of my skills, experience, and projects.
               </p>
-              <Button className="w-full gap-2 glow-blue" asChild>
+              <Button className="w-full gap-2" asChild>
                 <a href="/resume.pdf" download>
                   <Download className="w-4 h-4" />
                   Download PDF
                 </a>
               </Button>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Right - Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 lg:p-8 space-y-6">
+            <form onSubmit={handleSubmit} className="pro-card p-6 space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label htmlFor="name" className="text-sm font-medium">
@@ -215,7 +179,6 @@ export const Contact = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="bg-muted/30 border-border/50 focus:border-primary"
                   />
                 </div>
                 <div className="space-y-2">
@@ -229,7 +192,6 @@ export const Contact = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="bg-muted/30 border-border/50 focus:border-primary"
                   />
                 </div>
               </div>
@@ -244,7 +206,6 @@ export const Contact = () => {
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   required
-                  className="bg-muted/30 border-border/50 focus:border-primary"
                 />
               </div>
 
@@ -259,28 +220,24 @@ export const Contact = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
-                  className="bg-muted/30 border-border/50 focus:border-primary resize-none"
+                  className="resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
                 size="lg"
-                className="w-full gap-2 glow-blue"
+                className="w-full gap-2"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full"
-                    />
+                    <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
                     Sending...
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
+                    <Send className="w-4 h-4" />
                     Send Message
                   </>
                 )}
